@@ -155,6 +155,19 @@ def accuracy(model, test_loader):
 # Streamlit UI
 st.title("MC Dropout for Uncertainty Estimation on MNIST")
 
+# Write about MC Dropout
+st.write("MC Dropout is a technique for uncertainty estimation in deep learning models. It is a simple and effective method for estimating uncertainty in deep learning models. The simplicity of the key idea of this formulation is one the main reasons for its popularity: by enabling dropout not only in training but also during testing, and by doing several forward passes through the network with the same input data, one can use the distribution of the outputs of the different passes to estimate the first two moments (mean and variance) of the predictive distribution.")
+st.markdown("[Reference](https://arxiv.org/pdf/2008.02627.pdf)")
+st.divider()
+
+# Write about ECE
+st.write("Expected Calibration Error (ECE) is a metric for evaluating the calibration of a classifier. It is defined as the expected value of the difference between the accuracy and confidence of the classifier. A perfectly calibrated classifier has an ECE of 0.")
+st.divider()
+
+# Write about the model
+st.write("The model used is a simple CNN with single convolutional layer giving 4 filter and 2 fully connected layers of (4x13x13) to 16 and 16 to 10. The model is trained with a dropout rate of 0.3. The model is trained with the Adam optimizer.")
+st.divider()
+
 # Sliders for dropout rate and number of samples
 dropout_rate = st.sidebar.slider("Dropout Rate", 0.0, 1.0, 0.5, 0.05)
 num_samples = st.sidebar.slider("Number of Samples", 1, 20, 5, 1)
