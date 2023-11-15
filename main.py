@@ -164,7 +164,7 @@ if st.sidebar.button("Run MC Dropout"):
 	st.write("Evaluating with MC Dropout...")
 
 	model = CNN(dropout_rate=dropout_rate, N=num_samples).to(device)
-	model.load_state_dict(torch.load(f'models/mnist_cnn_model_{epoch_trained-1}.pth'))
+	model.load_state_dict(torch.load(f'models/mnist_cnn_model_{epoch_trained-1}.pth', map_location=torch.device(device)))
 	model.eval()
 
 	# acc, uncertainty = accuracy(model, test_loader)
@@ -177,7 +177,7 @@ if st.sidebar.button("Select a Random Sample"):
 	st.write("Selecting a random sample...")
 
 	model = CNN(dropout_rate=dropout_rate, N=num_samples).to(device)
-	model.load_state_dict(torch.load(f'models/mnist_cnn_model_{epoch_trained-1}.pth'))
+	model.load_state_dict(torch.load(f'models/mnist_cnn_model_{epoch_trained-1}.pth', map_location=torch.device(device)))
 	model.eval()
 
 	st.write("Accuracy: ", accuracy(model, test_loader))
@@ -198,7 +198,7 @@ if st.sidebar.button("Plot ECE"):
 	model = CNN(dropout_rate=dropout_rate, N=num_samples).to(device)
 	ece = []
 	for i in range(15):
-		model.load_state_dict(torch.load(f'models/mnist_cnn_model_{i}.pth'))
+		model.load_state_dict(torch.load(f'models/mnist_cnn_model_{i}.pth', map_location=torch.device(device)))
 		model.eval()
 
 		ece.append(expected_calibration_error(model, test_loader, M=10, device=device))
@@ -219,7 +219,7 @@ if st.sidebar.button("Plot ECE"):
 	ece = []
 	for dropout_rate in np.linspace(0, 0.9, 10):
 		model = CNN(dropout_rate=dropout_rate, N=5).to(device)
-		model.load_state_dict(torch.load(f'models/mnist_cnn_model_14.pth'))
+		model.load_state_dict(torch.load(f'models/mnist_cnn_model_14.pth', map_location=torch.device(device)))
 		model.eval()
 
 		ece.append(expected_calibration_error(model, test_loader, M=10, device=device))
